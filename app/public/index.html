@@ -34,8 +34,8 @@
       <div id="patientWaitingApp" class="col-md-4 queueView">
         <div class="patientWaiting patient" v-for="patient in patients">
           Arrival Time <br>
-          <span>{{ patient.lastName }}</span>
-          <span>{{ patient.firstName }}</span> <br>
+          <span class="patientName">{{ patient.lastName }}</span>
+          <span class="patientName">{{ patient.firstName }}</span> <br>
           <span>{{ patient.sexAtBirth }}</span>
           <span>{{ patient.dob }}</span>
         </div>
