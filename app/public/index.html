@@ -31,9 +31,31 @@
     <div class="row">
       <div id="mainContent" class="col">
         <div id="patientRecordApp">
-          <form>
-            
-          </form>
+          <form @submit.prevent="handleCreateRecord">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="fFirstName">First Name</label>
+                <input type="text" class="form-control" id="fFirstName" placeholder="First Name" v-model="formPatient.firstName">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="fLastName">Last Name</label>
+                <input type="text" class="form-control" id="fLastName" placeholder="Last Name" v-model="formPatient.lastName">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-8">
+                <label for="fDOB">Date of Birth</label>
+                <input type="date" class="form-control" id="fDOB" v-model="formPatient.dob">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="fSexAtBirth">Sex at Birth</label>
+                <input type="text" class="form-control" id="fSexAtBirth" placeholder="SAB" v-model="formPatient.sexAtBirth">
+              </div>
+            </div>
+            <div class="form-row">
+              <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+            </form>
           <table class="table table-sm table-hover">
             <thead>
               <th>First</th>
@@ -41,8 +63,9 @@
               <th>DOB</th>
               <th>SAB</th>
             </thead>
+            <br>
             <tbody>
-              <tr v-for="p in patients">
+              <tr v-for="p in patients" @click="handleRecordClick(p)">
                 <td>{{ p.firstName }}</td>
                 <td>{{ p.lastName }}</td>
                 <td>{{ p.dob }}</td>
@@ -51,6 +74,7 @@
             </tbody>
           </table>
         </div>
+        <br>
         <div id="patientTriageApp">
         </div>
       </div>
