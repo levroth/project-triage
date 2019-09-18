@@ -29,57 +29,60 @@
 
   <div class="container">
     <div class="row">
-      <div id="mainContent" class="col">
+      <div id="mainContent" class="col-med-6">
         <div id="patientRecordApp">
-          <form>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="pFirstName">First Name</label>
-                <input type="text" class="form-control" id="pFirstName" placeholder="First Name">
+          <div>
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-5">
+                  <label for="pFirstName">First Name</label>
+                  <input type="text" class="form-control" id="pFirstName" placeholder="First Name">
+                </div>
+                <div class="form-group col-md-5">
+                  <label for="pLastName">Last Name</label>
+                  <input type="text" class="form-control" id="pLastName" placeholder="Last Name">
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="pSexAtBirth">Sex at Birth</label>
+                  <input type="text" class="form-control" id="pSexAtBirth">
+                </div>
               </div>
-              <div class="form-group col-md-6">
-                <label for="pLastName">Last Name</label>
-                <input type="text" class="form-control" id="pLastName" placeholder="Last Name">
-              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="pDOB">Date of Birth</label>
+                  <input type="date" class="form-control" id="PDOBr">
+                </div>
+                <div class="form-group col-md-8">
+                  <label for="pDescription">Description</label>
+                  <input type="text" class="form-control" id="pDescription" placeholder="Symptoms">
+                </div>
+
+              <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+          <br>
+          <div>
+            <table>
+              <thead class="table table-sm table-hover">
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date of Birth</th>
+                <th>Sex at Birth</th>
+              </thead>
+                <tbody>
+                  <tr v-for="patient in patients">
+                    <td>{{ patient.firstName }}</td>
+                    <td>{{ patient.lastName }}</td>
+                    <td>{{ patient.dob }}</td>
+                    <td>{{ patient.sexAtBirth }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputPublisher">Publisher</label>
-                <input type="text" class="form-control" id="inputPublisher" placeholder="Publisher">
-              </div>
-              <div class="form-group col-md-2">
-                <label for="inputYear">Year Published</label>
-                <input type="number" class="form-control" id="inputYear" placeholder="yyyy">
-              </div>
-              <div class="form-group col-md-2">
-                <label for="inputCount">Page Count</label>
-                <input type="number" class="form-control" id="inputCOunt">
-              </div>
-              <div class="form-group col-md-2">
-                <label for="inputZip">MSRP (US $)</label>
-                <input type="number" class="form-control" id="inputMSRP" step="0.01">
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Add</button>
-          </form>
-          <table>
-            <thead class="table table-sm table-hover">
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Date of Birth</th>
-              <th>Sex at Birth</th>
-            </thead>
-            <tbody>
-              <tr v-for="patient in patients">
-                <td>{{ patient.firstName }}</td>
-                <td>{{ patient.lastName }}</td>
-                <td>{{ patient.dob }}</td>
-                <td>{{ patient.sexAtBirth }}</td>
-              </tr>
-            </tbody>
-          </table>
+          </div>
         </div>
       </div>
+      <br>
       <div id="patientWaitingApp" class="col-md-4 queueView">
         <div class="patientWaiting patient"
         :class="patient.priority +'Priority'"
