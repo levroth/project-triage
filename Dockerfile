@@ -13,7 +13,10 @@ COPY docker/composer-installer.sh /usr/local/bin/composer-installer
 RUN apt-get -yqq update \
     && apt-get -yqq install --no-install-recommends unzip \
     && docker-php-ext-install pdo_mysql \
+    && groupadd docker \
     && chmod +x /usr/local/bin/composer-installer \
+    && apt-get install -y dos2unix \
+    && dos2unix -k -o /usr/local/bin/composer-installer \
     && composer-installer \
     && mv composer.phar /usr/local/bin/composer \
     && chmod +x /usr/local/bin/composer \
