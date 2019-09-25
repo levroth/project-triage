@@ -5,7 +5,20 @@ FROM php:7.3.8-apache
 LABEL maintainer="Tom Gregory"
 
 # Install Composer  (http://getcomposer.org)
-COPY docker/composer-installer.sh /usr/local/bin/composer-installer
+COPY docker/composer-installer.sh /usr/local/bin/composer-installer.old
+
+RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
+        && curl -o /tmp/composer-setup.sig https://composer.github.io/installer.sig \
+        && php -r "if (hash('SHA384', file_get_contents('/tmp/composer-setup.php')) \
+    !== trim(file_get_contents('/tmp/composer-setup.sig'))) { unlink('/tmp/composer-\
+    setup.php'); echo 'Invalid installer' . PHP_EOL; exit(1); }" \
+        && php /tmp/composer-setup.php \
+            --no-ansi \
+            --install-dir=/usr/local/bin \
+            --filename=composer \
+            --snapshot \
+        && rm -f /tmp/composer-setup.*
+
 
 # Install unzip utils (used by Composer) ...
 # ... install PHP's MySQL PDO drivers
@@ -14,23 +27,13 @@ RUN apt-get -yqq update \
     && apt-get -yqq install --no-install-recommends unzip \
     && docker-php-ext-install pdo_mysql \
     && groupadd docker \
-    && chmod +x /usr/local/bin/composer-installer \
-    && apt-get install -y dos2unix \
-    && dos2unix -k -o /usr/local/bin/composer-installer \
-    && composer-installer \
-    && mv composer.phar /usr/local/bin/composer \
     && chmod +x /usr/local/bin/composer \
     && composer --version
 
 COPY ./app /srv/app
 
-# Run Composer to install dependancies
+# Run Composer to install dependencies
 WORKDIR /srv/app/
-RUN composer install \
-    --no-interaction \
-    --no-plugins \
-    --no-scripts \
-    --prefer-dist
 
 # PHP configuration
 # This needs to be set *after* composer install, because
