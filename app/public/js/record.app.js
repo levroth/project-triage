@@ -10,7 +10,7 @@ var patientRecordsApp = new Vue({
       .then(response => response.json())
       .then(json => { patientRecordsApp.patients = json })
     },
-    handleSubmit() {
+    handleSubmit(event) {
        fetch('api/records/post.php', {
          method:'POST',
          body: JSON.stringify(this.recordPatient),

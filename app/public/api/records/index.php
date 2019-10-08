@@ -8,7 +8,7 @@ if (isset($_GET['guid'])){
   $stmt = $db->prepare(
     'SELECT * FROM Patient
     WHERE patientGuid = ?');
-  $stmt->execute($_GET['guid']);
+  $stmt->execute([$_GET['guid']]);
 } else {
   $stmt = $db->prepare('SELECT * FROM Patient');
   $stmt->execute();
