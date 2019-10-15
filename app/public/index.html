@@ -67,6 +67,7 @@
               </div>
             </div>
           </form>
+
           <div class="filter">
             <select v-model="filter.sab">
               <option value="">(all)</option>
@@ -85,7 +86,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="p in patients" @click="handleRowClick(p)" v-if="filter.sab=='' || filter.sab == p.sexAtBirth">
+              <tr v-for="p in patients" @click="handleRowClick(p)"
+              v-if="filter.sab=='' || filter.sab == p.sexAtBirth">
                 <td>{{ p.patientGuid }}</td>
                 <td>{{ p.firstName }}</td>
                 <td>{{ p.lastName }}</td>
@@ -153,8 +155,8 @@
         <div class="patient patientWaiting"
         :class="patient.priority + 'Priority'"
         v-for="patient in patients">
-          {{ displayWaitingLocalDate( patient.visitDateUtc) }}<br>
-          <small> {{ displayWaitingSince}} </small> <br>
+          {{ displayWaitingLocalDate(patient.visitDateUtc) }}<br>
+          <small>{{ displayWaitingSince(patient.visitDateUtc) }}</small><br>
           <span class="patientName">{{ patient.lastName }}</span>,
           <span class="patientName">{{ patient.firstName }}</span><br>
           {{ patient.sexAtBirth }} {{ patient.dob }}
